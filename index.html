@@ -10,8 +10,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            min-width: 100%;
-            height: 100%;   
+            width: calc(100% - 5px);
+            height: auto;   
             position: relative;
             margin-top: 10%;
         }
@@ -27,35 +27,31 @@
             text-align: center;
         }
         .a{ 
-            /* background-color: coral; */
             left: 0; 
             z-index: 0;
         }
         .b{ 
-            /* background-color: orangered;  */
             transform: scale(1.5, 1.5);             
             left: calc(25% - 50px);
             z-index: 1;
         }
         .c{ 
-            /* background-color: purple;  */
             transform: scale(2, 2); 
             left: calc(50% - 50px);
             z-index: 2;
         }
         .d{ 
-            /* background-color: steelblue;  */
             transform: scale(1.5, 1.5); 
             right: calc(25% - 50px);
             z-index: 1;
         }
         .e{ 
-            /* background-color: cadetblue;  */
             right: 0; 
             z-index: 0;
         }  
         .tarjeta img{
-            width: 100px;
+            width: 100%;
+            height: auto;
         }
 
         @keyframes BtoA {
@@ -200,31 +196,33 @@
     </div>
 
     <script>
+        function asignarAnimacion(tarjeta, claseActual, claseSiguiente){
+            tarjeta.style.animation = claseActual.toUpperCase() + 'to' + claseSiguiente.toUpperCase() + ' 1s linear forwards';
+            tarjeta.className = 'tarjeta ' + claseSiguiente.toLowerCase();
+        }
+
         var $prev = document.getElementById('prev');
         var $next = document.getElementById('next');
 
         $prev.addEventListener('click', function(){
             const $tarjetas = Array.from( document.getElementsByClassName('tarjeta') )
             $tarjetas.forEach(function($tarjeta){
-                if ($tarjeta.classList.contains('a')){
-                    $tarjeta.style.animation = 'AtoE 1s linear forwards';
-                    $tarjeta.className = 'tarjeta e';
-                }
-                else if ($tarjeta.classList.contains('b')){
-                    $tarjeta.style.animation = 'BtoA 1s linear forwards';  
-                    $tarjeta.className = 'tarjeta a';
-                }
-                else if ($tarjeta.classList.contains('c')){
-                    $tarjeta.style.animation = 'CtoB 1s linear forwards';  
-                    $tarjeta.className = 'tarjeta b';
-                }
-                else if ($tarjeta.classList.contains('d')){
-                    $tarjeta.style.animation = 'DtoC 1s linear forwards';   
-                    $tarjeta.className = 'tarjeta c';
-                }
-                else if ($tarjeta.classList.contains('e')){
-                    $tarjeta.style.animation = 'EtoD 1s linear forwards';   
-                    $tarjeta.className = 'tarjeta d';                                     
+                switch ($tarjeta.className.toString().substr(8, 1)){
+                    case 'a':
+                        asignarAnimacion($tarjeta, 'a', 'e');
+                        break;
+                    case 'b':
+                        asignarAnimacion($tarjeta, 'b', 'a');
+                        break;
+                    case 'c':
+                        asignarAnimacion($tarjeta, 'c', 'b');
+                        break;
+                    case 'd':
+                        asignarAnimacion($tarjeta, 'd', 'c');
+                        break;
+                    case 'e':
+                        asignarAnimacion($tarjeta, 'e', 'd');
+                        break;
                 }
             })
         })
@@ -232,25 +230,22 @@
         $next.addEventListener('click', function(){
             const $tarjetas = Array.from( document.getElementsByClassName('tarjeta') )
             $tarjetas.forEach(function($tarjeta){
-                if ($tarjeta.classList.contains('a')){
-                    $tarjeta.style.animation = 'AtoB 1s linear forwards';
-                    $tarjeta.className = 'tarjeta b';
-                }
-                else if ($tarjeta.classList.contains('b')){
-                    $tarjeta.style.animation = 'BtoC 1s linear forwards';  
-                    $tarjeta.className = 'tarjeta c';
-                }
-                else if ($tarjeta.classList.contains('c')){
-                    $tarjeta.style.animation = 'CtoD 1s linear forwards';  
-                    $tarjeta.className = 'tarjeta d';
-                }
-                else if ($tarjeta.classList.contains('d')){
-                    $tarjeta.style.animation = 'DtoE 1s linear forwards';   
-                    $tarjeta.className = 'tarjeta e';
-                }
-                else if ($tarjeta.classList.contains('e')){
-                    $tarjeta.style.animation = 'EtoA 1s linear forwards';   
-                    $tarjeta.className = 'tarjeta a';                                     
+                switch ($tarjeta.className.toString().substr(8, 1)){
+                    case 'a':
+                        asignarAnimacion($tarjeta, 'a', 'b');
+                        break;
+                    case 'b':
+                        asignarAnimacion($tarjeta, 'b', 'c');
+                        break;
+                    case 'c':
+                        asignarAnimacion($tarjeta, 'c', 'd');
+                        break;
+                    case 'd':
+                        asignarAnimacion($tarjeta, 'd', 'e');
+                        break;
+                    case 'e':
+                        asignarAnimacion($tarjeta, 'e', 'a');
+                        break;
                 }
             })
         })
