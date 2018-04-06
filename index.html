@@ -50,6 +50,10 @@
             height: 100px;
             position: absolute;
         }
+        .tarjeta img{
+            width: 100px;
+            height: 100px;
+        }
         .boton {
             position: relative;
             margin-top: 15%;
@@ -81,9 +85,16 @@
             right: 0; 
             z-index: 0;
         }  
-        .tarjeta img{
-            width: 100px;
-            height: 100px;
+
+        @media screen and (max-width: 420px){ 
+            .container {
+                grid-template: 1fr 1fr / 1fr 1fr;
+                grid-template-areas: "carousel carousel"
+                                     "prev next";
+            }
+            .next, .prev {
+                margin-top: 70px;
+            }
         }
 
         @keyframes BtoA {
@@ -297,4 +308,4 @@
         })
     </script>
 </body>
-</html>
+</html> 
